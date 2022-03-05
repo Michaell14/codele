@@ -11,22 +11,36 @@ import processData from "./getCurrWord";
 let counter=0;
 let row=1;
 let newWord="";
+var done=false;
+
 
 function App() {
 
-    const { isOpen, onOpen, onClose } = useDisclosure()
     const [letterList, setLetterList] = useState([]);
     const [templateCols, setTemplateCols] = useState("");
-
+    
     useEffect(() => {
-        newWord=processData();
-        const counter = Math.pow(newWord.length, 2);
-        console.log(newWord);
-        for (let i=0; i<counter; i++){
-            letterList.push(<GridItem className={"gridBox"} key={Math.random()}><Center boxShadow='md' w={"100px"} h={"100px"} borderRadius={"5px"} border={"solid 1px black"}><Text fontSize={"4xl"} mt={"3px"} id={i}></Text></Center></GridItem>)
-        }
+      
+      $(document).ready(function(){
+        $.ajax({
+          url: 'repos.csv',
+          dataType: 'text',
+          success: function(data) {
+            if (!done){
+              done=true;
+            
+            newWord = processData(data);
+            //console.log("end2:" +newWord);
+            const counter = Math.pow(newWord.length, 2);
+            for (let i=0; i<counter; i++){
+                letterList.push(<GridItem className={"gridBox"} key={Math.random()}><Center boxShadow='md' w={"100px"} h={"100px"} borderRadius={"5px"} border={"solid 1px black"}><Text fontSize={"4xl"} mt={"3px"} id={i}></Text></Center></GridItem>)
+            }
+  
+            setTemplateCols("repeat("+newWord.length+", 1fr)");
+          }}
+        });
 
-        setTemplateCols("repeat("+newWord.length+", 1fr)");
+      })
     })
 
   return (
@@ -36,8 +50,6 @@ function App() {
 
         <Center><Text fontSize="5xl" my={5}>Codele</Text></Center>
         <Button onClick={reloadPage} colorScheme={"green"} variant={"outline"} rightIcon={<RepeatIcon />} position={"absolute"} top={8} right={10}>Restart</Button>
-      
-      
   
       <Center>
           <Grid templateColumns={templateCols} maxW={"60vw"} gap={5}>
@@ -57,7 +69,6 @@ function reloadPage(){
 $(document).ready(function(){
 
   $(document).keyup(function(event){
-    console.log(counter);
     if (event.keyCode==8){
       if (counter>(row-1)*newWord.length){
         
@@ -70,7 +81,6 @@ $(document).ready(function(){
       if (counter<newWord.length*row){
         $("#"+counter).text(event.key);
         counter++;
-        console.log("ended")
       }
     }else if (event.keyCode==13){
       
@@ -101,7 +111,6 @@ $(document).ready(function(){
             }
             guess=false;
           }
-          console.log( $("#"+i).parentsUntil(".gridbox")[1])
           t1.add({
             targets: $("#"+i).parentsUntil(".gridbox")[1],
             background: newColor,
@@ -130,6 +139,8 @@ $(document).ready(function(){
     }
   });
 });
+
+
 
 
 export default App;
