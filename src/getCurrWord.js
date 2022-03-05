@@ -2,10 +2,6 @@ import $ from  "jquery";
 
 let currWord="";
 
-$.ajax({
-    url: 'repos.csv',
-    dataType: 'text',
-  }).done(processData);
 
 
 function processData(allText) {
@@ -14,7 +10,6 @@ function processData(allText) {
     }
     var allTextLines = allText.split("\n");
     
-
     var randomChoice = Math.floor(Math.random() * (allTextLines.length-1)+1);
 
     currWord=allTextLines[randomChoice].split(",")[0];
@@ -23,6 +18,7 @@ function processData(allText) {
         currWord=allTextLines[randomChoice].split(",")[0];
     }
     currWord=currWord.toLowerCase();
+    //console.log("end: " + currWord);
     return currWord;
 }
 export default processData;
