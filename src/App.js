@@ -13,7 +13,6 @@ let row=1;
 let newWord="";
 var done=false;
 
-
 function App() {
 
     const [letterList, setLetterList] = useState([]);
@@ -31,6 +30,8 @@ function App() {
             
             newWord = processData(data);
             //console.log("end2:" +newWord);
+
+            //Adds grid boxes for each letter
             const counter = Math.pow(newWord.length, 2);
             for (let i=0; i<counter; i++){
                 letterList.push(<GridItem className={"gridBox"} key={Math.random()}><Center boxShadow='md' w={"100px"} h={"100px"} borderRadius={"5px"} border={"solid 1px black"}><Text fontSize={"4xl"} mt={"3px"} id={i}></Text></Center></GridItem>)
@@ -68,35 +69,39 @@ function reloadPage(){
 
 $(document).ready(function(){
 
+  //When a letter is typed
   $(document).keyup(function(event){
+    
+    //When backspace is typed, erase a letter
     if (event.keyCode==8){
       if (counter>(row-1)*newWord.length){
-        
         counter--;
       }
       $("#"+counter).text("");
+
+    //When a letter of the alphebet is typed
     }else if (event.keyCode>=65 && event.keyCode<=90){
       
-      console.log(counter + " " + newWord.length)
       if (counter<newWord.length*row){
         $("#"+counter).text(event.key);
         counter++;
       }
+
+    //When enter is pressed
     }else if (event.keyCode==13){
       
-      if (counter>=Math.pow(newWord.length, 2)-1){
-        alert("Sorry, the word was: " + newWord)
-      }
-
       if (counter%newWord.length==0){
         
         var guess=true;
+        
+        //Timeline to animate each letter
         var t1 = anime.timeline({
           delay: function(el, i){return i*300},
           duration: 280, 
           easing: "easeInOutQuad"
         })
 
+        //Determines the accuracy of each entered letter
         for (let i=counter-newWord.length; i<counter; i++){
           const newWordLetter=newWord.substring(i%newWord.length, i%newWord.length+1);
           const enteredLetter=$("#"+i).text();
@@ -111,6 +116,8 @@ $(document).ready(function(){
             }
             guess=false;
           }
+
+          //Guessing animation when "enter" is pressed
           t1.add({
             targets: $("#"+i).parentsUntil(".gridbox")[1],
             background: newColor,
@@ -130,8 +137,13 @@ $(document).ready(function(){
           })
         }
 
+        //Checks if the guess was correct
         if (guess){
-          console.log("Congrats you got it right!")
+          alert("Congrats you got it right!")
+
+        //Checks last guess
+        }else if (!guess && counter>=Math.pow(newWord.length, 2)-1){
+          alert("Sorry, the word was: " + newWord)
         }
 
         row++;
@@ -139,8 +151,6 @@ $(document).ready(function(){
     }
   });
 });
-
-
 
 
 export default App;
