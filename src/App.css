@@ -3,3 +3,17 @@
 *{
   font-family: 'Fredoka One', cursive;
 }
+
+:root{
+  height: 100%;
+}
+
+@media (max-width:500px){
+  #restartBtn {
+    top: 70%;
+    right: 30%;
+    margin: 0 auto;
+    width: 35%;
+  }
+
+}

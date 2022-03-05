@@ -34,7 +34,7 @@ function App() {
             //Adds grid boxes for each letter
             const counter = Math.pow(newWord.length, 2);
             for (let i=0; i<counter; i++){
-                letterList.push(<GridItem className={"gridBox"} key={Math.random()}><Center boxShadow='md' w={"100px"} h={"100px"} borderRadius={"5px"} border={"solid 1px black"}><Text fontSize={"4xl"} mt={"3px"} id={i}></Text></Center></GridItem>)
+                letterList.push(<GridItem className={"gridBox"} key={Math.random()}><Center boxShadow='md' maxW={"100px"} w={"12vw"} maxH={"100px"} h={"12vw"} borderRadius={"5px"} border={"solid 1px black"}><Text fontSize={"4xl"} mt={"3px"} id={i}></Text></Center></GridItem>)
             }
   
             setTemplateCols("repeat("+newWord.length+", 1fr)");
@@ -46,14 +46,14 @@ function App() {
 
   return (
     <>
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossOrigin="anonymous"></link>
+      
       
 
-        <Center><Text fontSize="5xl" my={5}>Codele</Text></Center>
-        <Button onClick={reloadPage} colorScheme={"green"} variant={"outline"} rightIcon={<RepeatIcon />} position={"absolute"} top={8} right={10}>Restart</Button>
+      <Center><Text fontSize="5xl" my={5}>Codele</Text></Center>
+      <Button onClick={reloadPage} colorScheme={"green"} variant={"outline"} rightIcon={<RepeatIcon />} id={"restartBtn"}  position={"absolute"} top={8} right={10}>Restart</Button>
   
       <Center>
-          <Grid templateColumns={templateCols} maxW={"60vw"} gap={5}>
+          <Grid templateColumns={templateCols} mx={"auto"} gap={2}>
           {letterList}
           </Grid>
       </Center>
