@@ -5,8 +5,17 @@ import { Center, useDisclosure, Box, Flex, Button, Text, Grid,GridItem } from '@
 import $ from  "jquery";
 import anime from 'animejs/lib/anime.es.js';
 import { RepeatIcon } from '@chakra-ui/icons'
-
 import processData from "./getCurrWord";
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+} from '@chakra-ui/react'
+
 
 let counter=0;
 let row=1;
@@ -17,7 +26,8 @@ function App() {
 
     const [letterList, setLetterList] = useState([]);
     const [templateCols, setTemplateCols] = useState("");
-    
+    const { isOpen, onOpen, onClose } = useDisclosure({ defaultIsOpen: true });
+
     useEffect(() => {
       
       $(document).ready(function(){
@@ -46,8 +56,30 @@ function App() {
 
   return (
     <>
-      
-      
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>
+            <Text fontSize={"2xl"} id={"modalTitle"}>
+              Welcome Codele!✨
+            </Text>
+          </ModalHeader>
+          <ModalCloseButton />
+          <ModalBody id={"modalText"}>
+            <Flex flexDirection={"column"} align={"center"}>
+              <Text>Do you think you know your programming languages?💻</Text>
+              <br/>
+              <Text>Try to guess the hidden language in this Wordle parody. Hint: it's not going to be easy!🐯</Text>
+            </Flex>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button colorScheme='blue' mr={3} onClick={onClose}>
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
 
       <Center><Text fontSize="5xl" my={5}>Codele</Text></Center>
       <Button onClick={reloadPage} colorScheme={"green"} variant={"outline"} rightIcon={<RepeatIcon />} id={"restartBtn"}  position={"absolute"} top={8} right={10}>Restart</Button>

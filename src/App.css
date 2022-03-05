@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@600&display=swap');
 
 *{
   font-family: 'Fredoka One', cursive;
@@ -15,5 +16,12 @@
     margin: 0 auto;
     width: 35%;
   }
+}
 
+#modalTitle{
+  font-family: 'Fredoka', sans-serif;
+}
+
+#modalText p{
+  font-family: 'Fredoka', sans-serif;
 }
