@@ -60,16 +60,16 @@ function App() {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>
-            <Text fontSize={"2xl"} id={"modalTitle"}>
+            <Text fontSize={"3xl"} id={"modalTitle"}>
               Welcome Codele!✨
             </Text>
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody id={"modalText"}>
             <Flex flexDirection={"column"} align={"center"}>
-              <Text>Do you think you know your programming languages?💻</Text>
+              <Text fontSize={"xl"}>Do you think you know your programming languages?💻</Text>
               <br/>
-              <Text>Try to guess the hidden language in this Wordle parody. Hint: it's not going to be easy!🐯</Text>
+              <Text fontSize={"xl"}>Try to guess the hidden language in this Wordle parody. Hint: it's not going to be easy!🐯</Text>
             </Flex>
           </ModalBody>
 
